@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rayan Shaikh | Instagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      font-family: 'Poppins', sans-serif;
+      color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .card {
+      background: rgba(30,30,30,0.8);
+      border: 1px solid rgba(255,20,147,0.4);
+      box-shadow: 0 0 25px rgba(255,20,147,0.2);
+      border-radius: 30px;
+      padding: 2rem;
+      text-align: center;
+      width: 340px;
+      backdrop-filter: blur(12px);
+      animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .avatar {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #ff1493;
+      box-shadow: 0 0 25px #ff1493;
+      animation: glow 3s infinite ease-in-out;
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 25px #ff1493; }
+      50% { box-shadow: 0 0 35px #e1306c; }
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      pointer-events: none;
+      filter: drop-shadow(0 0 2px white);
+      border-radius: 50%;
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      margin: 0.3rem 0;
+    }
+    h4 {
+      font-weight: 400;
+      color: #ff99b4;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #ddd;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(45deg, #e1306c, #fd1d1d);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #fd1d1d;
+    }
+    @media (max-width: 400px) {
+      .card { width: 90vw; padding: 1.5rem; }
+      .avatar { width: 130px; height: 130px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="avatar">
+      <img src="https://i.ibb.co/SX3RP8mp/IMG-8812.jpg" alt="Rayan Shaikh">
+      <canvas id="snow" width="160" height="160" aria-hidden="true"></canvas>
+    </div>
+    <h1>Rayan Shaikh</h1>
+    <h4>College Student</h4>
+    <p>I like to study with enjoyment, not pressure.<br><strong>😉 Science Student 😉</strong></p>
+    <a href="https://www.instagram.com/rayan_shaikh50" target="_blank" rel="noopener" class="btn">
+      <i class="fab fa-instagram"></i> Follow Me
+    </a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('snow'), ctx = canvas.getContext('2d');
+    const flakes = Array.from({ length: 35 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 5 + 2,
+      s: Math.random() * 0.6 + 0.3,
+      w: Math.random() * 0.6 - 0.3,
+      o: Math.random() * 0.6 + 0.3,
+      rot: Math.random() * 2 * Math.PI
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      flakes.forEach(f => {
+        ctx.save();
+        ctx.translate(f.x, f.y);
+        ctx.rotate(f.rot);
+        ctx.strokeStyle = `rgba(255,255,255,${f.o})`;
+        ctx.lineWidth = 1.5;
+        for (let i = 0; i < 6; i++) {
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(0, f.r);
+          ctx.stroke();
+          ctx.rotate(Math.PI / 3);
+        }
+        ctx.restore();
+        f.y += f.s;
+        f.x += f.w;
+        f.rot += 0.01;
+        if (f.y > canvas.height) f.y = -f.r;
+        if (f.x > canvas.width) f.x = 0;
+        if (f.x < 0) f.x = canvas.width;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>
