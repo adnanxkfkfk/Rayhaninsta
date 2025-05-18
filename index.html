@@ -1,155 +1,338 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rayan Shaikh | Instagram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <meta name="description" content="Rayan Shaikh - Passionate Science Student and Tech Enthusiast">
+  <meta property="og:title" content="Rayan Shaikh | Instagram Profile">
+  <meta property="og:image" content="https://i.ibb.co/Y7ZpQR1K/470901003-937947358301080-7117831969423789260-n.jpg">
+  <meta property="og:description" content="College Student passionate about scientific exploration and technology">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Rayan Shaikh | Science Student</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0 }
+    :root {
+      --primary: #ff1493;
+      --secondary: #e1306c;
+      --text: #f0f0f0;
+      --bg: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+      --card-bg: rgba(30,30,30,0.95);
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0;
+    }
+
     body {
-      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      background: var(--bg);
       font-family: 'Poppins', sans-serif;
-      color: #f0f0f0;
+      color: var(--text);
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       overflow: hidden;
     }
+
     .card {
-      background: rgba(30,30,30,0.8);
-      border: 1px solid rgba(255,20,147,0.4);
-      box-shadow: 0 0 25px rgba(255,20,147,0.2);
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 35px rgba(255,20,147,0.3);
       border-radius: 30px;
-      padding: 2rem;
+      padding: 2.5rem 2rem;
       text-align: center;
-      width: 340px;
-      backdrop-filter: blur(12px);
-      animation: fadeIn 1s ease-out;
+      width: min(90vw, 420px);
+      backdrop-filter: blur(15px);
+      transform-origin: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .card {
+        animation: cardEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
     }
-    .avatar {
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(255,20,147,0.4);
+    }
+
+    @keyframes cardEntrance {
+      0% { 
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      100% { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .avatar-container {
       position: relative;
       width: 160px;
       height: 160px;
-      margin: 0 auto 1rem;
+      margin: 0 auto 1.5rem;
+      perspective: 1000px;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
+      border: 4px solid var(--primary);
       overflow: hidden;
-      border: 4px solid #ff1493;
-      box-shadow: 0 0 25px #ff1493;
-      animation: glow 3s infinite ease-in-out;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+      box-shadow: 0 0 30px var(--primary);
+      animation: avatarGlow 3s ease-in-out infinite;
     }
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 25px #ff1493; }
-      50% { box-shadow: 0 0 35px #e1306c; }
+
+    .avatar:hover {
+      transform: rotateY(20deg) scale(1.05);
     }
+
+    @keyframes avatarGlow {
+      0%, 100% { box-shadow: 0 0 30px var(--primary); }
+      50% { box-shadow: 0 0 45px var(--secondary); }
+    }
+
     .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
     }
-    canvas {
-      position: absolute;
-      top: 0; left: 0;
-      pointer-events: none;
-      filter: drop-shadow(0 0 2px white);
-      border-radius: 50%;
-    }
+
     h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.8rem;
-      margin: 0.3rem 0;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: 0;
+      animation: textFadeIn 0.8s 0.3s forwards;
     }
+
     h4 {
       font-weight: 400;
-      color: #ff99b4;
-      margin-bottom: 1rem;
+      color: #ffa7c4;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: textFadeIn 0.8s 0.5s forwards;
     }
+
     p {
       font-size: 1rem;
-      margin-bottom: 1.5rem;
-      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      color: #e0e0e0;
+      opacity: 0;
+      animation: textFadeIn 0.8s 0.7s forwards;
     }
+
+    @keyframes textFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: linear-gradient(45deg, #e1306c, #fd1d1d);
+      gap: 12px;
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
       color: #fff;
       text-decoration: none;
-      padding: 0.75rem 1.5rem;
+      padding: 1rem 2rem;
       border-radius: 30px;
       font-weight: 600;
-      font-size: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 1.1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      animation: textFadeIn 0.8s 0.9s forwards;
+      position: relative;
+      overflow: hidden;
     }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.3),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
     .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #fd1d1d;
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 8px 25px rgba(225, 48, 108, 0.4);
     }
-    @media (max-width: 400px) {
-      .card { width: 90vw; padding: 1.5rem; }
-      .avatar { width: 130px; height: 130px; }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--primary), var(--secondary));
+      border-radius: 4px;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.5rem; }
+      .avatar-container { width: 140px; height: 140px; }
+      h1 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
-  <div class="card" role="main">
-    <div class="avatar">
-      <img src="https://i.ibb.co/Y7ZpQR1K/470901003-937947358301080-7117831969423789260-n.jpg" alt="Rayan Shaikh">
-      <canvas id="snow" width="160" height="160" aria-hidden="true"></canvas>
+  <div class="card" role="main" aria-label="Profile Card">
+    <div class="avatar-container">
+      <div class="avatar" aria-label="Profile Picture">
+        <img src="https://i.ibb.co/Y7ZpQR1K/470901003-937947358301080-7117831969423789260-n.jpg" 
+             alt="Rayan Shaikh" 
+             loading="lazy" 
+             decoding="async">
+      </div>
     </div>
     <h1>Rayan Shaikh</h1>
-    <h4>College Student</h4>
-    <p>I like to study with enjoyment, not pressure.<br><strong>😉 Science Student 😉</strong></p>
-    <a href="https://www.instagram.com/rayan_shaikh50" target="_blank" rel="noopener" class="btn">
-      <i class="fab fa-instagram"></i> Follow Me
+    <h4>College Student • <span id="age"></span></h4>
+    <p>Passionate about learning through exploration and curiosity.<br>
+      <strong>🔬 Science Enthusiast | 💻 Tech Explorer</strong></p>
+    <a href="https://www.instagram.com/rayan_shaikh50" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="btn"
+       aria-label="Follow on Instagram">
+      <i class="fab fa-instagram"></i> 
+      <span>Follow Me</span>
+      <span class="sr-only">Instagram profile link</span>
     </a>
   </div>
 
   <script>
-    const canvas = document.getElementById('snow'), ctx = canvas.getContext('2d');
-    const flakes = Array.from({ length: 35 }, () => ({
+    // Dynamic Age Calculation
+    const birthYear = 2002; // Update with your birth year
+    document.getElementById('age').textContent = `${new Date().getFullYear() - birthYear} years`;
+
+    // Card Click Animation
+    document.querySelector('.card').addEventListener('click', (e) => {
+      if (!e.target.closest('a')) {
+        e.currentTarget.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          e.currentTarget.style.transform = '';
+        }, 100);
+      }
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        document.querySelector('.btn').click();
+      }
+    });
+
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('SW registered'))
+          .catch(err => console.log('SW registration failed'));
+      });
+    }
+
+    // Snowflake Animation
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.querySelector('.avatar-container');
+    canvas.className = 'snowfall';
+    container.appendChild(canvas);
+
+    function resizeCanvas() {
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+    }
+
+    const flakes = Array.from({ length: 25 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 5 + 2,
-      s: Math.random() * 0.6 + 0.3,
-      w: Math.random() * 0.6 - 0.3,
-      o: Math.random() * 0.6 + 0.3,
-      rot: Math.random() * 2 * Math.PI
+      r: Math.random() * 3 + 1,
+      s: Math.random() * 0.3 + 0.2,
+      o: Math.random() * 0.5 + 0.3,
+      rot: Math.random() * Math.PI * 2
     }));
 
-    function draw() {
+    function drawSnow() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      flakes.forEach(f => {
+      ctx.lineCap = 'round';
+      
+      flakes.forEach(flake => {
         ctx.save();
-        ctx.translate(f.x, f.y);
-        ctx.rotate(f.rot);
-        ctx.strokeStyle = `rgba(255,255,255,${f.o})`;
-        ctx.lineWidth = 1.5;
-        for (let i = 0; i < 6; i++) {
+        ctx.translate(flake.x, flake.y);
+        ctx.rotate(flake.rot);
+        ctx.strokeStyle = `rgba(255,255,255,${flake.o})`;
+        ctx.lineWidth = 1.2;
+        
+        for(let i = 0; i < 6; i++) {
           ctx.beginPath();
           ctx.moveTo(0, 0);
-          ctx.lineTo(0, f.r);
+          ctx.lineTo(0, flake.r);
           ctx.stroke();
           ctx.rotate(Math.PI / 3);
         }
+        
         ctx.restore();
-        f.y += f.s;
-        f.x += f.w;
-        f.rot += 0.01;
-        if (f.y > canvas.height) f.y = -f.r;
-        if (f.x > canvas.width) f.x = 0;
-        if (f.x < 0) f.x = canvas.width;
+        
+        flake.y += flake.s;
+        flake.rot += 0.01;
+        
+        if(flake.y > canvas.height) {
+          flake.y = -10;
+          flake.x = Math.random() * canvas.width;
+        }
       });
-      requestAnimationFrame(draw);
+      
+      requestAnimationFrame(drawSnow);
     }
-    draw();
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    drawSnow();
   </script>
 </body>
 </html>
